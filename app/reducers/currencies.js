@@ -65,16 +65,19 @@ export default (state = initialState, action) => {
     case COIN_LIST_RESULT:
       return {
         ...state,
-        ...action.result.data,
+        coinList: action.result,
       };
     case GET_INITIAL_CONVERSION:
-      return { ...state, conversions: setConversions(state, { currency: state.baseCurrency }) };
+      return {
+        ...state,
+        conversions: setConversions(state, { currency: state.baseCurrency }),
+      };
     case CONVERSION_RESULT:
       return {
         ...state,
         conversions: {
           ...state.conversions,
-          [action.result.base]: {
+          [action.result.id]: {
             isFetching: false,
             ...action.result,
           },

@@ -3,7 +3,7 @@ import { FlatList, StatusBar, View } from 'react-native';
 import { connect } from 'react-redux';
 
 import { ListItem, Separator } from '../components/List';
-// import currencies from '../data/currencies';
+import currencies from '../data/currencies';
 import { changeBaseCurrency, changeQuoteCurrency } from '../actions/currencies';
 
 class CurrencyList extends Component {
@@ -24,11 +24,16 @@ class CurrencyList extends Component {
       comparisonCurrency = this.props.quoteCurrency;
     }
 
+    let coinListData = this.props.coinList;
+    if (this.props.navigation.state.params.type === 'base') {
+      coinListData = currencies;
+    }
+
     return (
       <View style={{ flex: 1 }}>
         <StatusBar barStyle="default" />
         <FlatList
-          data={coinList}
+          data={coinListData}
           renderItem={({ item }) => (
             <ListItem
               text={item}
@@ -50,7 +55,7 @@ const mapStateToProps = state => ({
   baseCurrency: state.currencies.baseCurrency,
   quoteCurrency: state.currencies.quoteCurrency,
   primaryColor: state.theme.primaryColor,
-  coinList: state.currencies.Data,
+  coinList: state.currencies.coinList,
 });
 
 export default connect(mapStateToProps)(CurrencyList);

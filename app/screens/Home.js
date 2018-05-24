@@ -22,8 +22,8 @@ class Home extends Component {
   constructor(props) {
     super(props);
 
-    this.props.dispatch(getInitialConversion());
     this.props.dispatch(getCoinList());
+    this.props.dispatch(getInitialConversion());
   }
 
   componentDidUpdate(prevProps) {
@@ -61,7 +61,9 @@ class Home extends Component {
   render() {
     let quotePrice = '...';
     if (!this.props.isFetching) {
-      quotePrice = (this.props.amount * this.props.conversionRate).toFixed(2);
+      quotePrice = (this.props.conversionRate * this.props.amount).toFixed(2);
+      console.log(quotePrice);
+      console.log(this.props.conversionRate);
     }
 
     return (
@@ -111,14 +113,14 @@ class Home extends Component {
 
 const mapStateToProps = (state) => {
   const { baseCurrency, quoteCurrency } = state.currencies;
-  const conversionSelector = state.currencies.conversions[baseCurrency] || {};
-  const rates = conversionSelector.rates || {};
+  const conversionSelector = state.currencies.conversions[quoteCurrency] || {};
+  const rates = 1 / parseFloat(conversionSelector.price_eur) || {};
 
   return {
     baseCurrency,
     quoteCurrency,
     amount: state.currencies.amount,
-    conversionRate: rates[quoteCurrency] || 0,
+    conversionRate: rates || 0,
     lastConvertedDate: conversionSelector.date ? new Date(conversionSelector.date) : new Date(),
     isFetching: conversionSelector.isFetching,
     primaryColor: state.theme.primaryColor,
