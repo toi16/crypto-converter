@@ -1,3 +1,5 @@
+import theme from './theme';
+
 export default {
-  banana: () => [],
+  theme,
 };
