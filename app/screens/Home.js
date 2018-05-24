@@ -5,6 +5,10 @@ import { Container } from '../components/Container';
 import { Header } from '../components/Header';
 
 class Home extends Component {
+  handleOptionsPress = () => {
+    this.props.navigation.navigate('Options');
+  };
+
   render() {
     return (
       <Container backgroundColor={this.props.primaryColor}>
