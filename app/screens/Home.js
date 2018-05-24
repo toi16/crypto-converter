@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { Text } from 'react-native';
 import { AlertConsumer } from '../components/Alert';
+import { Container } from '../components/Container';
+import { Header } from '../components/Header';
 
 class Home extends Component {
   render() {
     return (
-      <View>
+      <Container backgroundColor={this.props.primaryColor}>
+        <Header
+          onPress={this.handleOptionsPress}
+          isConnected={this.props.isConnected}
+          onWarningPress={this.handleDisconnectedPress}
+        />
         <Text> Home</Text>
-      </View>
+      </Container>
     );
   }
 }

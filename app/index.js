@@ -6,11 +6,9 @@ import { AlertProvider } from './components/Alert';
 class App extends Component {
   render() {
     return (
-      <View>
-        <AlertProvider>
-          <Navigator onNavigationStateChange={null} />
-        </AlertProvider>
-      </View>
+      <AlertProvider>
+        <Navigator />
+      </AlertProvider>
     );
   }
 }
