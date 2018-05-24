@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
+import { connect } from 'react-redux';
+
 import { AlertConsumer } from '../components/Alert';
 import { Container } from '../components/Container';
 import { Header } from '../components/Header';
@@ -23,8 +25,14 @@ class Home extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  primaryColor: state.theme.primaryColor,
+});
+
+const ConnectedHome = connect(mapStateToProps)(Home);
+
 export default props => (
   <AlertConsumer>
-    {context => <Home alertWithType={context.alertWithType} {...props} />}
+    {context => <ConnectedHome alertWithType={context.alertWithType} {...props} />}
   </AlertConsumer>
 );
